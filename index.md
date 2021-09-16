@@ -32,7 +32,7 @@ The database contains:
 
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
-Papa.parse("observations.csv", {
+Papa.parse("https://animaltraits.github.io/observations.csv", {
     header: true,
     worker: true,
     download: true,
