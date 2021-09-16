@@ -7,23 +7,24 @@ Herberstein, M. E. et al. 2021. An animal trait database for body mass, metaboli
 
 If you use the database in your research, please cite this paper.
 
-The distinctive value of this new animal trait database is four-fold: 
-1. Open access: the data are openly available to researchers without restrictions; 
-1. Taxonomic breadth: the database includes a broad taxonomic range of terrestrial animal species including several groups of tetrapods and arthropods, as well as molluscs and annelids; 
-1. Clean, empirical data: all data are sourced from the original publication that made and reported on the included measurements, and are entered into the database using the original metrics - all subsequent transformations can be applied to these original data, meaning it is eminently reusable by future researchers; 
-1. Annotation: we have included useful methodological metadata that allow researchers to filter the dataset as needed.
+The distinctive value of this new animal trait database is four-fold:
+<ol class="descr-list">
+  <li>Open access: the data are openly available to researchers without restrictions; </li>
+  <li>Taxonomic breadth: the database includes a broad taxonomic range of terrestrial animal species including several groups of tetrapods and arthropods, as well as molluscs and annelids; </li>
+  <li>Clean, empirical data: all data are sourced from the original publication that made and reported on the included measurements, and are entered into the database using the original metrics - all subsequent transformations can be applied to these original data, meaning it is eminently reusable by future researchers; </li>
+  <li>Annotation: we have included useful methodological metadata that allow researchers to filter the dataset as needed.</li>
+</ol>
 
 
 <div>
-
 The database contains:
 <ul class="descr-list">
-<li><span class="count" id="sources"></span> data sources;</li>
-<li><span class="count" id="observations"></span> observations;</li>
-<li><span class="count" id="species"></span> species;</li>
-<li><span class="count" id="mass"></span> species with mass;</li>
-<li><span class="count" id="metabolicrate"></span> species with metabolic rate;</li>
-<li><span class="count" id="brainsize"></span> species with brain size.</li>
+  <li><span class="count" id="sources"></span> data sources;</li>
+  <li><span class="count" id="observations"></span> observations;</li>
+  <li><span class="count" id="species"></span> species;</li>
+  <li><span class="count" id="mass"></span> species with mass;</li>
+  <li><span class="count" id="metabolicrate"></span> species with metabolic rate;</li>
+  <li><span class="count" id="brainsize"></span> species with brain size.</li>
 </ul>
 </div>
 
