@@ -33,7 +33,6 @@ The database contains:
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
 Papa.parse("observations.csv", {
-    download: true,
     header: true,
     worker: true,
     complete: function(results) {
