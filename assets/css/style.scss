@@ -2,3 +2,11 @@
 ---
 
 @import "{{ site.theme }}";
+
+.count { font-weight: bold }
+
+.descr-list { padding-left: 4ex }
+
+#download-css span {
+  background: transparent url(../images/csv-icon.png) 12px 50% no-repeat;
+}
