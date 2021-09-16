@@ -32,7 +32,7 @@ The database contains:
 
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
-Papa.parse("http://127.0.0.1:4000/observations.csv", {
+Papa.parse("observations.csv", {
     header: true,
     worker: true,
     download: true,
