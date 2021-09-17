@@ -24,9 +24,13 @@
           <h1>{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
           <h2>{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
         </header>
+
+        {% if page.show_downloads %}
         <section id="downloads" class="clearfix">
           <a href="{{ site.csv_url }}" id="download-css" class="button"><span>Download .csv</span></a>
+          <a href="{{ site.xlsx_url }}" id="download-xslx" class="button"><span>Download .xslx</span></a>
         </section>
+         {% endif %}
         
         <hr>
         <section id="main_content">
