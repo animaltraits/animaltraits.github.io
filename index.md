@@ -1,4 +1,5 @@
 ---
+show_downloads: true
 ---
 
 The animal traits database is a curated database containing body mass, metabolic rate and brain size measurements across a wide range of terrestrial animal taxa. The database is described in the (as yet unpublished) paper:
@@ -32,8 +33,9 @@ The database contains:
 
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
-// Unfortunately I can't get this to work with a relative URL
-Papa.parse("https://animaltraits.github.io/observations.csv", {
+// Note that this doesn't work when running locally
+let url = "{{ site.csv_url | absolute_url }}";
+Papa.parse(url, {
     download: true,
     header: true,
     worker: true,
