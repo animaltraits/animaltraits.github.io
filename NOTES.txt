@@ -1,0 +1,4 @@
+DNS
+---
+
+To access the GitHub pages site via our domain, animaltraits.org, I followed the GitHub pages documentation for Managing a custom domain for your GitHub Pages site (https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain). Next I went to godaddy (which hosts our domain name) and edited the existing DNS A record to point to 1 of the 4 github pages IP addresses, then added 3 more A records to point to the other 3 github pages IP addresses.
