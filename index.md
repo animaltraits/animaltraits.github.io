@@ -18,7 +18,7 @@ The distinctive value of this new animal trait database is four-fold:
 
 ## Data formats
 
-The database can be downloaded as either a UTF-8 encoded CSV file or as an Excel (.xlsx) file. UTF-8 encoding is used so that accented characters in the references are represented correctly. Some software assumes that CSV files are UTF-8 encoded, however in some situations it is necessary to specify the encoding when opening a CSV file. For instructions for Microsoft Excel, see the [Text Import Wizard](https://support.microsoft.com/en-us/office/text-import-wizard-c5b02af6-fda1-4440-899f-f78bafe41857). If reading the file using base [R](https://www.r-project.org/), use `read.csv(file, encoding = "UTF-8")`.
+The database can be downloaded as either a UTF-8 encoded CSV file or as an Excel (.xlsx) file. UTF-8 encoding is used so that accented characters in the references are represented correctly. Some software assumes that CSV files are UTF-8 encoded, however in some situations it is necessary to specify the encoding when opening a CSV file. To open such a file in Microsoft Excel, use the [Text Import Wizard](https://support.microsoft.com/en-us/office/text-import-wizard-c5b02af6-fda1-4440-899f-f78bafe41857). If reading the file using base [R](https://www.r-project.org/), use `read.csv(file, encoding = "UTF-8")`.
 
 <div>
 The database contains:
