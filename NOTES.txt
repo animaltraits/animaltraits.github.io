@@ -6,6 +6,4 @@ To access the GitHub pages site via our domain, animaltraits.org, I followed the
 SSL/TLS/HTTPS
 -------------
 
-For some reason, https access doesn't work (as at 29 Sep 2021). The Github documentation seems to say it should work if the correct github pages IP addresses are used in the DNS records, but I am using the correct IP addresses.
-
-On the Settings -> Pages Github admin page, under Enforce HTTPS, it says "Unavailable for your site because a certificate has not yet been issued for your domain (animaltraits.org) ".
+Initially HTTPS didn;t work with the custom domain, but after removing it and re-adding it, it started to work.
