@@ -43,7 +43,7 @@ The database contains:
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
 // Note that this doesn't work when running locally
-let url = "{{ site.csv_url | relative_url }}";
+let url = "{{ site.csv_url | absolute_url }}";
 Papa.parse(url, {
     download: true,
     header: true,
