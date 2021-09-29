@@ -7,5 +7,3 @@ This GitHub project is the website for the animal traits database. Its primary p
 The website is available at http://animaltraits.org/.
 
 The descriptive statistics on the website are filled in interactively by some javascript that reads the database and updates the page accordingly.
-
-The database is generated in CSV format. Whenever there is a new version, the .xlsx version must be manually re-created.
