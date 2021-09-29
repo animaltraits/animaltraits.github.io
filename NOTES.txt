@@ -7,3 +7,5 @@ SSL/TLS/HTTPS
 -------------
 
 Initially HTTPS didn;t work with the custom domain, but after removing it and re-adding it, it started to work.
+
+I found it was necessary to explicitly define the URL in _config.yml, because otherwise the URL constructed in the javascript to read the database and populate the stats started with htpp instead of https, which caused XmlHttpRequest to throw an error.
