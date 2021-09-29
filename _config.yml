@@ -1,7 +1,7 @@
 theme: jekyll-theme-tactile
 title: Animal traits database
 description: A curated and open database of terrestrial animal traits
-url: "https://animaltraits.org"
+url: "https://animaltraitsx.org"
 csv_url: "observations.csv"
 xlsx_url: "observations.xlsx"
 docs_url: "column-documentation.csv"
