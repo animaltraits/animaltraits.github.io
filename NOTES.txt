@@ -2,3 +2,8 @@ DNS
 ---
 
 To access the GitHub pages site via our domain, animaltraits.org, I followed the GitHub pages documentation for Managing a custom domain for your GitHub Pages site (https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain). Next I went to godaddy (which hosts our domain name) and edited the existing DNS A record to point to 1 of the 4 github pages IP addresses, then added 3 more A records to point to the other 3 github pages IP addresses.
+
+SSL/TLS/HTTPS
+-------------
+
+For some reason, https access doesn't work (as at 29 Sep 2021). The Github documentation seems to say it should work if the correct github pages IP addresses are used in the DNS records, but I am using the correct IP addresses.
