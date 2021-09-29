@@ -1,0 +1,42 @@
+"Column","Description","Defined by"
+"phylum","The full scientific name of the phylum or division in which the taxon is classified.","Darwin core"
+"class","The full scientific name of the class in which the taxon is classified.","Darwin core"
+"order","The full scientific name of the order in which the taxon is classified.","Darwin core"
+"family","The full scientific name of the family in which the taxon is classified.","Darwin core"
+"genus","The full scientific name of the genus in which the taxon is classified.","Darwin core"
+"species","The genus and specific epithet.",
+"specificEpithet","The name of the first or species epithet of the scientificName.","Darwin core"
+"sex","The sex of the individual(s).","Darwin core"
+"sampleSizeValue","Number of individuals in the observation.","Darwin core"
+"inTextReference","In-text citation of the originating data source.",
+"publicationYear","Year of publication of the originating data source.",
+"fullReference","Full reference details of the originating data source.",
+"mass","Numeric standardised body mass value",
+"mass - units","Units of body mass",
+"mass - method","Method used to measure mass",
+"mass - comments","Manually entered comments arising from data entry or quality control.  The text ""DONTWARN: checked"" flags that the value fails an automated check but has been manually double checked against the original data source",
+"mass - metadata comment","Manually entered comments about the method used to measure the mass",
+"original mass","Unstandardised mass or weight value from source document",
+"original mass - units","Units of mass or weight in source document",
+"metabolic rate","Numeric standardised metabolic rate value",
+"metabolic rate - units","Units for metabolic rate",
+"metabolic rate - method","Method used to measure metabolic rate",
+"metabolic rate - comments","Manually entered comments arising from data entry or quality control.  The text ""DONTWARN: checked"" flags that the value fails an automated check but has been manually double checked against the original data source",
+"metabolic rate - metadata comment","Manually entered comments about the method used to measure the metabolic rate",
+"original metabolic rate","Unstandardised metabolic rate value from source document",
+"original metabolic rate - units","Units of metabolic rate in source document",
+"original respiratoryQuotient","The respiratory quotient value recorded in the source document",
+"original temperature","Temperature at which metabolic rate was measured",
+"mass-specific metabolic rate","Numeric standardised metabolic rate / body mass",
+"mass-specific metabolic rate - units","Units of standardised mass-specific metabolic rate",
+"brain size","Numeric standardised brain size",
+"brain size - units","Units for standardised brain size",
+"brain size - method","Method used to measure brain size",
+"brain size - comments","Manually entered comments arising from data entry or quality control.  The text ""DONTWARN: checked"" flags that the value fails an automated check but has been manually double checked against the original data source",
+"brain size - metadata comment","Manually entered comments about the method used to measure the brain size",
+"original brain size","Unstandardised brain size from source document",
+"original brain size - units","Units of brain size in source document",
+"observationID","Used internally to track observations back to source data",
+"file","Used internally to track observations back to source data",
+"line","Used internally to track observations back to source data",
+"modified","Used internally to track observations back to source data",

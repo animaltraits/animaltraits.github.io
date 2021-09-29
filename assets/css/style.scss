@@ -3,12 +3,18 @@
 
 @import "{{ site.theme }}";
 
+/* make the page slightly wider to fit 3 buttons */
+.inner { width: 640px; }
+
 .count { font-weight: bold }
 
 .descr-list { padding-left: 4ex }
 
+/* The h3 colour was too bright */
+h3 { color: #25000d; }
+
 #downloads { margin-bottom: 30px; }
-#download-css span {
+#download-csv span, #download-docs span {
   background: transparent url(../images/csv-icon.png) 12px 50% no-repeat;
 }
 #download-xlsx span {
