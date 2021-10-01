@@ -6,7 +6,7 @@ The animal traits database is a curated database containing body mass, metabolic
 
 Herberstein, M. E. et al. 2021. An animal trait database for body mass, metabolic rate and brain size.
 
-The database can be freely reused, even commercially, provided you give appropriate credit to the database. 
+The database can be freely reused, even commercially, provided you give appropriate credit. 
 If you use the database in your research, please cite the paper.
 
 The distinctive value of this new animal trait database is four-fold:
