@@ -2,7 +2,11 @@
 
 ### An animal trait database containing body mass, metabolic rate and brain size
 
-This is GitHub project for the animal traits database. It contains two components: the raw data and R scripts used to compile the database, and a website.
+This is the GitHub project for the animal traits database. It contains two components: the raw data and R scripts used to compile the database, and a website. The database is described in the paper
+
+Herberstein, M. E. et al. 2021. An animal trait database for body mass, metabolic rate and brain size.
+
+It can be downloaded from the [animal traits website](https://animaltraits.org/).
 
 #### Database
 
