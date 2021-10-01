@@ -1,0 +1,22 @@
+Blackr magic behaviour
+
+Step 1: check and standardise raw data
+
+Need R code to read a set of CSV files containing obervations, and output a single(?) CSV file containing merged observations, one row per species?.
+Selected traits and units and normalisation?
+
+Metabolic rate normalisation
+
+Steps to standardise whole-body metabolic rate
+1. If only mass-specific MR is available,
+     divide mass-specific MR by body mass
+2. If expressed as consumption of CO2, 
+     if respiratory quotient (RQ) is reported
+       convert to O2 = CO2 / respiratory quotient
+     else if direct conversion factor is provided
+       convert to Joules using provided conversion factor
+3. If expressed as consumption of O2, 
+    convert to Joules using conversion factor e.g. 20 J/mL
+4. Convert to desired output units
+5. If species is non-endotherm, 
+    convert to standard temperature
