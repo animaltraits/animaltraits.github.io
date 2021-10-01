@@ -12,7 +12,7 @@ It can be downloaded from the [animal traits website](https://animaltraits.org/)
 
 To compile the database, trait observations were manually extracted from peer-reviewed publications. Observations were recorded in CSV files, which we term _raw_ files. The raw files are stored in a directory structure underneath the [`data`](data) directory.
 
-Raw files are read by a set of R scripts that standardise the observations and compile the result into a single spreadsheet. The scripts are in the `R` directory (and its sub-directories). The output database is written to the `output` directory. The compiled database is written to two files, UTF-8 encoded `observations.csv` and the Excel spreadsheet format `observations.xlsx`. In addition, the file `column-documentation.csv` is copied from the `data` directory into the `output` directory. The data content of the two `observations.*` files is equivalent, although the spreadsheet contains a second worksheet that contains the documentation from the `column-documentation.csv` file.
+Raw files are read by a set of R scripts that standardise the observations and compile the result into a single spreadsheet. The scripts are in the [`R`](R) directory (and its sub-directories). The output database is written to the `output` directory. The compiled database is written to two files, UTF-8 encoded `observations.csv` and the Excel spreadsheet format `observations.xlsx`. In addition, the file `column-documentation.csv` is copied from the `data` directory into the `output` directory. The data content of the two `observations.*` files is equivalent, although the spreadsheet contains a second worksheet that contains the documentation from the `column-documentation.csv` file.
 
 #### Website
 
