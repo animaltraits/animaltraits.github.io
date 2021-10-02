@@ -14,4 +14,4 @@ CLASS_COLOURS <- c(Arachnida = "#e6194B", Aves = "#3cb44b", Chilopoda = "#ffe119
 
 
 # File that documents the database columns
-COLS_DOC_FILE <- "../data/database column definitions.xlsx"
+COLS_DOC_FILE <- "../data/database-column-definitions.xlsx"

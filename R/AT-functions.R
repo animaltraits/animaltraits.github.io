@@ -19,7 +19,7 @@ ReadStandardisedObservations <- function(fileName = "observations.csv", adjustCo
 
   # For internal use, allow file to be located in ../output
   altFilename <- file.path(OUTPUT_DIR, fileName)
-  if (!file.exists(path) && file.exists(altFilename))
+  if (!file.exists(fileName) && file.exists(altFilename))
     fileName <- altFilename
   
   # WARNING! Don't use read_csv because it seems to read numbers incorrectly!
@@ -39,20 +39,32 @@ ReadStandardisedObservations <- function(fileName = "observations.csv", adjustCo
 #'
 #' @param obs Data frame (or tibble) of standardised observations (see
 #'   \code{ReadStandardisedObservations}).
-#' @param combineSexes If TRUE (the default), the value in the \code{sex} column is ignored
-#'   when grouping.
+#' @param combineSexes If TRUE (the default), the value in the \code{sex} column
+#'   is ignored when grouping.
+#' @param excludeMorphospecies If TRUE (the default), morphospecies (e.g.
+#'   "Lycosa sp.") are excluded from the dataset before aggregation.
 #' @param aggregationFn Function used to convert multiple trait values for a
 #'   single species into one value. Defaults to \code{mean}.
 #' @param groupOnSpeciesOnly If TRUE, only species name is used for aggregation.
 #'   This is useful when different sources disagree on higher taxa (e.g. family)
 #'   for a species.
-#'   
+#'
 #' @seealso \code{\link{ReadStandardisedObservations}}
+#'
+#' @examples 
+#' obs <- ReadStandardisedObservations()
+#' traits <- SpeciesTraitsFromObservations(obs)
 #' 
-SpeciesTraitsFromObservations <- function(obs, combineSexes = TRUE, aggregationFn = mean, groupOnSpeciesOnly = FALSE) {
+SpeciesTraitsFromObservations <- function(obs, combineSexes = TRUE, excludeMorphospecies = TRUE, aggregationFn = mean, groupOnSpeciesOnly = FALSE) {
   # Expand out to 1 observation sample per row
   idx <- rep(1:nrow(obs), obs$sampleSizeValue)
   xobs <- obs[idx, ]
+  
+  # Optionally exclude morphospecies, i.e. "Genus sp" or "Genus sp.1"
+  if (excludeMorphospecies) {
+    morpho <- grepl("^sp\\.?[[:digit:][:blank:]]*$|^spp\\..*", xobs$specificEpithet, ignore.case = TRUE)
+    xobs <- xobs[!morpho, ]
+  }
   
   # Ignore all "original" columns
   colNames <- grep("^original", names(obs), invert = TRUE, value = TRUE)

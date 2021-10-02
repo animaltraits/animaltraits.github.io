@@ -16,3 +16,12 @@ Input and output directory and file names are defined in `standardisation/consta
 The list of traits and units to be written to the output file is
 defined in `standardisation/traits-config.R`. It also contains
 conversion factors, eg. O2 consumption to Joules.
+
+The file `AT-functions.r` contains 2 functions that may be useful to users of the database who are using `R`. The functions are:
+
+| Function | Description |
+| -------- | ----------- |
+| `ReadStandardisedObservations` | Reads the observations database from a CSV file. Enforces the correct encoding. |
+| `SpeciesTraitsFromObservations` | Given a dataframe of observations, aggregates them into species-level traits. |
+
+Both functions are documented with the source file.
