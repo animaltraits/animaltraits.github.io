@@ -17,7 +17,7 @@ The list of traits and units to be written to the output file is
 defined in `standardisation/traits-config.R`. It also contains
 conversion factors, eg. O2 consumption to Joules.
 
-The file `AT-functions.r` contains 2 functions that may be useful to users of the database who are using `R`. The functions are:
+The file [`AT-functions.r`](https://raw.githubusercontent.com/animaltraits/animaltraits.github.io/main/R/AT-functions.R) contains 2 functions that may be useful to users of the database who are using `R`. Feel fere to download the script to include in your own projects. The functions are:
 
 | Function | Description |
 | -------- | ----------- |
