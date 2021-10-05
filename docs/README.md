@@ -1,6 +1,6 @@
 # `docs` folder
 
-This folder contains the source for the website. It is implemented using [GitHub pages](https://pages.github.com/), which uses [Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll). 
+This folder contains the source for the animal traits database website. It is implemented using [GitHub pages](https://pages.github.com/), which uses [Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll). 
 
 The website is available at https://animaltraits.org/.
 
