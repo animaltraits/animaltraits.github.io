@@ -19,6 +19,8 @@ The distinctive value of this new animal trait database is four-fold:
 
 ### Data formats
 
+The buttons at the top of this page provide download access to the database. 
+
 The database can be downloaded as either a UTF-8 encoded CSV file or as an Excel (.xlsx) file. UTF-8 encoding is used so that accented characters in the references are represented correctly. Some software assumes that CSV files are UTF-8 encoded, however in some situations it is necessary to specify the encoding when opening a CSV file. To open such a file in Microsoft Excel, use the [Text Import Wizard](https://support.microsoft.com/en-us/office/text-import-wizard-c5b02af6-fda1-4440-899f-f78bafe41857). If reading the file using base [R](https://www.r-project.org/), use `read.csv(file, encoding = "UTF-8")`.
 
 The `Download docs` button provides access to a CSV file that documents the columns in the database. The Excel version of the database contains the column documentation as a second worksheet.
@@ -44,7 +46,7 @@ The database contains:
 
 ### Source accessibility
 
-The source code and raw data are available on [GitHub](https://github.com/animaltraits/animaltraits.github.io).
+The raw data and source code for compiling the raw data into the database are available on [GitHub](https://github.com/animaltraits/animaltraits.github.io).
 
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
