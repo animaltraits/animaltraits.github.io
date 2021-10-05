@@ -1,9 +1,8 @@
 # `data` folder
 
-This folder contains raw trait data and related files. The generated database with standardised trait values is NOT located here; it is in `../output/observations.csv`.
+This folder contains raw trait data and related files. The generated database with standardised trait values is NOT located here; it is compiled into `../output/observations.csv`, then copied to the website folder `../docs`.
 
 ## Encoding
-
 
 CSV files are encoded in UTF-8. UTF-8 is used so that accented
 characters can be used reliably and portably.  Google sheets handles
