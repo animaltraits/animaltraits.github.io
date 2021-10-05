@@ -25,7 +25,5 @@ The database compilation process ends by copying the finished products from the 
 
 #### Website
 
-The website is intended to provide straightforward access to the compiled database. It is implemented using [GitHub pages](https://pages.github.com/), which uses [Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll). 
-
-The source is in the [`docs`](docs) directory, and the website is available at https://animaltraits.org/.
+The website is intended to provide straightforward access to the compiled database. The source is in the [`docs`](docs) directory, and the website is available at https://animaltraits.org/.
 
