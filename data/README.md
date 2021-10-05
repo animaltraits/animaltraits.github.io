@@ -31,5 +31,5 @@ https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-python
 | `Template.csv` | This is the "Raw data template" tab from Template.xlsx in CSV format. This file can be copied and renamed to create a new raw data file. |
 | `Too Hard Reference List.docx` | Word document that lists candidate data sources that were not included in the database. Each data source has a comment that describes why it was excluded from the database. |
 | `checked-taxa.csv` | List of taxa that have been checked by the database compilation process. Used to speed up the compilation process by caching taxon queries to reduce the number of queries required. |
-| `database-column-definitions.xlsx` | Spreadsheet that describes the columns in the compiled database. |
+| `database-column-definitions.xlsx` | Spreadsheet that describes the columns in the compiled database. This is converted to CSV by the database compilation process. |
 
