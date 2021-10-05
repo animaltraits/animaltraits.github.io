@@ -57,21 +57,18 @@ dirOrFile <- commandArgs(TRUE)
 source("standardisation/traits-config.R") # Defines traits_list and CONVERSIONS
 # Output is to a CSV file
 cat("Compiling and standardising observations...\n")
-StandardiseObservations(dirOrFile, traits_list, checkTaxa = TRUE)
+# NOTE that obs here includes debugging columns, but they are NOT written to the output database
+obs <- StandardiseObservations(dirOrFile, traits_list, checkTaxa = TRUE)
 
 # Checks that the columns in the generated database exactly match the columns that are documented
 CheckColumnDoco()
-
-# Export to the Excel spreadsheet format file
-
-
 
 # QA - generate reports to aid in manual checking for errors in the data 
 QA_DIR <- file.path(OUTPUT_DIR, "QA")
 
 # Generate plots for checking values. Possible dubious values can optionally be
 # reported to the console by specifying reportTraits and reportClasses.
-CheckValueOutliers(ReadStandardisedObservations(), QA_DIR, reportTraits = "", reportClasses = "")
+CheckValueOutliers(obs, QA_DIR, reportTraits = "", reportClasses = "")
 
 # Report on suspiciously high within-species variation
 JReportToFile(file.path(QA_DIR, "suspicious-variation.txt"), {
@@ -79,7 +76,7 @@ JReportToFile(file.path(QA_DIR, "suspicious-variation.txt"), {
   cat("This can indicate a data problem, although it may not.\n")
   cat("\n")
   
-  ReportHighlyVariableSpecies(ReadStandardisedObservations())
+  ReportHighlyVariableSpecies(obs)
 })
 
 cat("Exporting to Excel...\n")

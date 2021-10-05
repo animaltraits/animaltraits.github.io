@@ -166,8 +166,9 @@ CheckReferences <- function(data) {
 # resolution, with points that might need checking highlighted.
 CheckValueOutliers <- function(obs, outDir, reportTraits = "brain size", reportClasses = "") {
   
-  # reportClasses <- "Insecta"
-
+  if (!"observationID" %in% names(obs))
+    stop("observations must include internal (reference) columns observationID, file and line")
+  
   # For each trait to be checked...
   for (trait in c("brain size", "metabolic rate")) {
     
@@ -222,6 +223,10 @@ HighlyVariableSpecies <- function(obs, trait, minCV = 0.9, minFactor = 8) {
 }
 
 ReportHighlyVariableSpecies <- function(obs, traits = c("mass", "metabolic rate", "brain size")) {
+
+  if (!"observationID" %in% names(obs))
+    stop("observations must include internal (reference) columns observationID, file and line")
+
   noProbs <- TRUE
   
   for (tr in traits) {
@@ -247,10 +252,9 @@ ReportHighlyVariableSpecies <- function(obs, traits = c("mass", "metabolic rate"
 }
 
 # Compares the columns in the standardised data set with the columns documented in the documentation spreadsheet
-CheckColumnDoco <- function(docFile = COLS_DOC_FILE) {
+CheckColumnDoco <- function(obs = ReadStandardisedObservations(), docFile = COLS_DOC_FILE) {
   doco <- read_excel(docFile)
-  obs <- ReadStandardisedObservations()
-  
+
   if (!isTRUE(all.equal(doco$Column, names(obs)))) {
     msg <- "Columns in the generated database do not match the documented columns"
     stop(msg)

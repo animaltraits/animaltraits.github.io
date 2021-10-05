@@ -123,6 +123,9 @@ extractAndStandardiseTraitsFromDirOrFile <- function(dirOrFile, traitsList, chec
 #' Reads in raw observations from one or more CSV files, checks and standardises
 #' them, and writes the result to a single CSV file.
 #'
+#' @return The observations dataset, but including extra columns that can be
+#'   used to trace observations back to their raw source data.
+#'
 #' @param rawDirOrFile Name of a CSV file or directory containing multiple CSV
 #'   files. Each file must have the same columns.
 #' @param traitsList List traits to be output, together with output units and
@@ -133,7 +136,9 @@ extractAndStandardiseTraitsFromDirOrFile <- function(dirOrFile, traitsList, chec
 #'   reported.
 #' @param ignoreFiles List of files in the `rawDirOrFile` directory which should
 #'   not be read.
-StandardiseObservations <- function(rawDirOrFile = RAW_DATA_DIR, traitsList, outFile = file.path(OUTPUT_DIR, OBS_FILE), checkTaxa = TRUE, ignoreFiles = character(0)) {
+StandardiseObservations <- function(rawDirOrFile = RAW_DATA_DIR, traitsList, 
+                                    outFile = file.path(OUTPUT_DIR, OBS_FILE), 
+                                    checkTaxa = TRUE, ignoreFiles = character(0)) {
   if (length(rawDirOrFile) == 0)
     rawDirOrFile <- RAW_DATA_DIR
   obs <- extractAndStandardiseTraitsFromDirOrFile(rawDirOrFile, traitsList, checkTaxa, ignoreFiles = ignoreFiles)
@@ -142,14 +147,17 @@ StandardiseObservations <- function(rawDirOrFile = RAW_DATA_DIR, traitsList, out
   if (!dir.exists(outputDir))
     dir.create(outputDir)
   
-  # Reorder columns
+  # Reorder columns to put the internal (reference) columns last
   cols <- names(obs)
-  finalCols <- c("observationID", "file", "line", "modified")
-  obs <- obs[, c(cols[!cols %in% finalCols], finalCols)]
-  
+  refCols <- c("observationID", "file", "line", "modified")
+  productionCols <- cols[!cols %in% refCols]
+  debugCols <- c(productionCols, refCols)
+
   # Create a CSV file with 1 row / observation, each trait (and units) in columns
-  write.csv(obs, outFile, na = "", row.names = FALSE, fileEncoding = "UTF-8")
+  write.csv(obs[, productionCols], outFile, na = "", row.names = FALSE, fileEncoding = "UTF-8")
   # This is faster but seems to crash R intermittently!
-  #write_csv(obs, outFile, na = "")
+  #write_csv(obs[, productionCols], outFile, na = "")
+  
+  invisible(obs[, debugCols])
 }
 

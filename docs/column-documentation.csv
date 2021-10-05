@@ -36,7 +36,3 @@
 "brain size - metadata comment","Manually entered comments about the method used to measure the brain size",
 "original brain size","Unstandardised brain size from source document",
 "original brain size - units","Units of brain size in source document",
-"observationID","Used internally to track observations back to source data",
-"file","Used internally to track observations back to source data",
-"line","Used internally to track observations back to source data",
-"modified","Used internally to track observations back to source data",
