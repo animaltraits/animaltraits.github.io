@@ -5,9 +5,9 @@
 # applied, are defined in the file traits-config.R. 
 #
 # Also runs various error checks and quality control measures. 
+# 
+# The compiled database is written to the ../output directory, and also to 
 
-# This script also generates
-# various plots and reports in the "output" directory.
 
 
 library(readxl) # For checking the documentation
@@ -29,14 +29,24 @@ source("plot_observations.R") # For error detection plots
 # Export the observations, together with the column documentation, into an Excel spreadsheet
 ExportToExcel <- function(obs = ReadStandardisedObservations(),
                           docFile = COLS_DOC_FILE,
-                          filename = "../output/Observations.xlsx",
-                          outDocFile = "../output/column-documentation.csv") {
+                          filename = file.path(OUTPUT_DIR, "observations.xlsx"),
+                          outDocFile = file.path(OUTPUT_DIR, COLS_DOC_CSV_FILE)) {
   write.xlsx2(as.data.frame(obs), filename, "Observations", row.names = FALSE, showNA = FALSE)
   doco <- read_excel(docFile)
   write.xlsx2(as.data.frame(doco), filename, "Column descriptions", append = TRUE, row.names = FALSE, showNA = FALSE)
   
   # Also write the column documentation to a CSV file
   write.csv(as.data.frame(doco), outDocFile, row.names = FALSE, na = "")
+}
+
+CopyFilesToWebsite <- function(files = c(file.path(OUTPUT_DIR, "observations.csv"),
+                                         file.path(OUTPUT_DIR, "observations.xlsx"),
+                                         file.path(OUTPUT_DIR, COLS_DOC_CSV_FILE)),
+                               websiteDir = "../docs") {
+  copied <- file.copy(files, websiteDir, overwrite = TRUE)
+  if (any(!copied)) {
+    stop(sprintf("Copy failed: %s to %s\n", JToSentence(files[!copied]), websiteDir))
+  }
 }
 
 
@@ -74,3 +84,5 @@ JReportToFile(file.path(QA_DIR, "suspicious-variation.txt"), {
 
 cat("Exporting to Excel...\n")
 ExportToExcel()
+cat("Copying files to website...\n")
+CopyFilesToWebsite()
