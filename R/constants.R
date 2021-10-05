@@ -15,3 +15,5 @@ CLASS_COLOURS <- c(Arachnida = "#e6194B", Aves = "#3cb44b", Chilopoda = "#ffe119
 
 # File that documents the database columns
 COLS_DOC_FILE <- "../data/database-column-definitions.xlsx"
+# CSV file that is created by reading the Excel file
+COLS_DOC_CSV_FILE <- "column-documentation.csv"
