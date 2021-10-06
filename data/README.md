@@ -8,9 +8,8 @@ CSV files are encoded in UTF-8. UTF-8 is used so that accented
 characters can be used reliably and portably.  Google sheets handles
 UTF-8 by default, but MS Excel requires some effort, see:
 
-- https://stackoverflow.com/questions/6002256/is-it-possible-to-force-excel-recognize-utf-8-csv-files-automatically
-
-- https://answers.microsoft.com/en-us/msoffice/forum/all/how-to-open-utf-8-csv-file-in-excel-without-mis/1eb15700-d235-441e-8b99-db10fafff3c2
+- [Is it possible to force Excel recognize UTF-8 CSV files automatically?](https://stackoverflow.com/questions/6002256/is-it-possible-to-force-excel-recognize-utf-8-csv-files-automatically)
+- [How to open UTF-8 CSV file in Excel without mis-conversion of characters in Japanese and Chinese language for both Mac and Windows?](https://answers.microsoft.com/en-us/msoffice/forum/all/how-to-open-utf-8-csv-file-in-excel-without-mis/1eb15700-d235-441e-8b99-db10fafff3c2)
 
 or query the Internet for `UTF8 CSV`.  In R, UTF-8 CSV files can be
 opened by using `read.csv(..., encoding = "UTF-8")`. See this post for
