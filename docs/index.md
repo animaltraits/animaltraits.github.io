@@ -2,14 +2,17 @@
 show_downloads: true
 ---
 
-The animal traits database is a curated database containing body mass, metabolic rate and brain size measurements across a wide range of terrestrial animal taxa. The database is described in the (as yet unpublished) paper:
+The animal traits database is a curated database containing body mass,
+metabolic rate and brain size measurements across a wide range of
+terrestrial animal taxa. The database is described in the (as yet
+unpublished) paper:
 
 Herberstein, M. E. et al. 2021. An animal trait database for body mass, metabolic rate and brain size.
 
-The database can be freely reused, even commercially, provided you
-give appropriate credit.  If you use the database in your research,
-please cite the paper, and, when possible, also cite the original data
-sources which are identified in the database.
+The database and associated code can be freely reused with no
+restrictions. If you use the database in your research, we request
+that you cite the paper, and, when possible, also cite the relevant
+original data sources that are identified in the database.
 
 The distinctive value of this new animal trait database is four-fold:
 <ol class="descr-list">
@@ -44,11 +47,24 @@ The database contains:
 
 ### License
 
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://animaltraits.org">The animal traits database</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
+<p xmlns:dct="http://purl.org/dc/terms/">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <a rel="dct:publisher"
+     href="https://animaltraits.org">https://animaltraits.org</a>
+  has waived all copyright and related or neighboring rights to
+  <span property="dct:title">the animal traits database</span>.
+</p>
 
 ### Source accessibility
 
-The raw data and source code for compiling the raw data into the database are available on [GitHub](https://github.com/animaltraits/animaltraits.github.io).
+The raw data and source code for compiling the raw data into the
+database are available on
+[GitHub](https://github.com/animaltraits/animaltraits.github.io).
 
 <script type = "text/javascript">
 // Get some database statistics and enter them into the page
