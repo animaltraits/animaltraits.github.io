@@ -14,8 +14,8 @@ UTF-8 by default, but MS Excel requires some effort, see:
 
 or query the Internet for `UTF8 CSV`.  In R, UTF-8 CSV files can be
 opened by using `read.csv(..., encoding = "UTF-8")`. See this post for
-reading UTF-8 in Python:
-https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-python
+reading UTF-8 in Python: [Reading a UTF8 CSV file with
+Python](https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-python).
 
 
 ## Sub-folders
