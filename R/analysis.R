@@ -86,5 +86,5 @@ JReportToFile(file.path(QA_DIR, "suspicious-variation.txt"), {
 
 cat("Exporting to Excel...\n")
 ExportToExcel()
-cat("Copying files to website...\n")
+cat("Copying files to website folder...\n")
 CopyFilesToWebsite()

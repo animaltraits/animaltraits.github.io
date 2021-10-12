@@ -10,6 +10,7 @@ deriveBrainSizeFromObservation <- function(rawRows, desiredUnits, conversions, c
   measurementType <- "brain size"
   rawRow <- measurementRow(rawRows, measurementType)
   bs <- extractMeasurementFromObservation(rawRow, measurementType)
+  
   if (is.null(bs))
     return(BuildTraitRow(NULL, colName, unitsColName, NULL))
   

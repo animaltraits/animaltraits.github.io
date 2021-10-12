@@ -8,6 +8,9 @@
 library(tibble)
 
 
+# Returns the first non-empty element in a vector
+FirstNonBlank <- function(v) v[v != ""][1]
+
 #' Reads in the standardised observations, and returns them as a tibble (i.e. a
 #' slightly altered data frame).
 #'

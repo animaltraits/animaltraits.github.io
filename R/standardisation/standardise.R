@@ -11,12 +11,10 @@ library(tibble)
 library(readr)
 
 
-source("standardisation/constants.R")
 source("standardisation/mass.R")
 source("standardisation/brain_size.R")
 source("standardisation/metabolic_rate.R")
 source("standardisation/raw_data.R")
-source("standardisation/utils.R")
 
 
 ################################################################

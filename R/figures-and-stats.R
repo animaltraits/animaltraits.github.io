@@ -6,6 +6,8 @@
 #install.packages("devtools")
 #devtools::install_github("JimMcL/JUtils")
 library(JUtils) # Simplifies plotting to files
+source("AT-functions.R")
+source("constants.R")
 
 
 ######################################################################
@@ -45,7 +47,7 @@ SummariseTraits <- function() {
 SummariseObservations <- function() {
   obs <- ReadStandardisedObservations()
   
-  cat(sprintf("Total of %d observations from %d sources.\n", nrow(obs), length(unique(obs$file))))
+  cat(sprintf("Total of %d observations from %d sources.\n", nrow(obs), length(unique(obs$fullReference))))
   SummariseAvailableData(obs, "All taxa:")
   
   cat("\n")  
@@ -113,10 +115,61 @@ SummariseObservations <- function() {
 ######################################################################
 # Publication figure
 
-# Draw the figure
-.goFigure <- function(obs, legXInset = -0.6, arrowLength = 0.1) {
+# Draw tick marks and labels for a logarithmic axis.
+# 
+# @param axis 1=below, 2=left, 3=above and 4=right.
+drawLogTicks <- function(side, ticks, ...) {
+
+  labels <- sapply(ticks, function(i) as.expression(bquote(10 ^ .(i))))
+  axis(side, at = 10 ^ ticks, labels = labels, ...)
+}
+
+transparentColour <- function(colour, alpha) {
+  c <- col2rgb(colour)
+  rgb(c[1,], c[2,], c[3,], alpha, maxColorValue = 255)
+}
+
+.colourForCat <- function(categories, transparency = NA) {
+  col <- CLASS_COLOURS[match(sub(" .*", "", categories), names(CLASS_COLOURS))]
+  if (!is.na(transparency))
+    col <- transparentColour(col, transparency)
+  col
+}
+
+.plotObservations <- function(obs, xCol, yCol, categoriesCol = "Group", 
+                              transparency = NA,
+                              xTicks, yTicks, 
+                              ...) {
   
-  .colFn <- function(cats) {CLASS_COLOURS[match(sub(" .*", "", cats), names(CLASS_COLOURS))]}
+  
+  unitsColName <- function(col) paste(col, "- units")
+  
+  colToLab <- function(col) {
+    units <- FirstNonBlank(obs[[unitsColName(col)]])
+    # Expand column name "mass" to "body mass"
+    colExpanded <- ifelse(col == "mass", "body mass", col)
+    sprintf("%s (%s)", JCapitalise(colExpanded), FirstNonBlank(obs[[unitsColName(col)]]))
+  }
+  
+  # Get data to be plotted
+  data <- obs[!is.na(obs[[xCol]]) & !is.na(obs[[yCol]]) & !is.na(obs[[categoriesCol]]), c(xCol, yCol, categoriesCol, "species")]
+  
+  categories <- as.factor(data[[categoriesCol]])
+  # Colours
+  col <- .colourForCat(categories)
+  pt.col <- "#333333"
+  
+  plot(as.formula(paste0("`", yCol, "` ~ `", xCol, "`")), data = data,
+       log = "xy", xlab = colToLab(xCol), ylab = colToLab(yCol),
+       cex = 1.1, pch = 21, col = pt.col, bg = col,  
+       axes = FALSE, ...)
+  drawLogTicks(1, xTicks, lwd = 1)
+  drawLogTicks(2, yTicks, lwd = 1)
+}
+
+# Draw the figure
+.goFigure <- function(obs, arrowLength = 0.06) {
+  
   
   # Label with RHS arrow
   .label <- function(x0, y0, x1, y1, label, adj = c(1, 0.5), ...) {
@@ -131,16 +184,13 @@ SummariseObservations <- function() {
   categoriesCol = "class"
   obs$Group <- ifelse(obs$class == "Reptilia", obs$order, obs$class)
   categoriesCol <- "Group"
+
+  layout(matrix(1:3, nrow = 1), widths = c(5, 5, 3))
+  ### Metabolic rate to mass
+  par(mar = c(5, 5.5, 1, 0) + .1, xpd = TRUE)
+  .plotObservations(obs, "mass", "metabolic rate", xTicks = seq(-8, 2, 2), yTicks = seq(-7, 3, 2),
+                    ylim = c(10e-9, 10e2))
   
-  layout(matrix(1:2, nrow = 1), widths = c(4, 6))
-  allClasses <- sort(unique(obs[[categoriesCol]]))
-  PlotMRonMass(obs, 
-               categoriesCol = categoriesCol, 
-               catColourFn = .colFn,
-               ptOutlineCol = "#333333",
-               mar = c(5, 5.5, 1, 0) + .1, pch = 21,
-               maxXTicks = 10, maxYTicks = 9,
-               labelTransformed = FALSE, legend = FALSE)
   .mulabel(20, .06, 4, 1.6, "ant eaters")
   arrows(20, .06, 13, 3, length = arrowLength)
   arrows(20, .06, 30, 8, length = arrowLength)
@@ -151,31 +201,35 @@ SummariseObservations <- function() {
   .mulabel(.05, 20e-5, .02, 60e-5, "tarantulas")
   .label(.000001, .00000006, .0000001, .0000001, "mites", adj = c(0, 0.5))
   arrows(.000001, .00000006, .00000003, .00000005, length = arrowLength)
-  mtext("a)", line = -1, adj = -0.23, font = 2, cex = 1.5)
+  mtext("a)", line = -1, adj = -0.23, font = 2, cex = 1)
   
+  ### Brain size to mass
+  .plotObservations(obs, "mass", "brain size", xTicks = seq(-7, 3, 2), yTicks = seq(-8, 0, 2))
+  .label(5, 1, 20, 1.2, "humans")
+  .mulabel(80, .001, 70, .022, "ratites")
+  .mulabel(.002, .00000002, .002, .00000038, "orb-web spiders")
+  arrows(.002, .00000002, .0004, .00000019, length = arrowLength)
+  arrows(.002, .00000002, .00011, .00000012, length = arrowLength)
+  mtext("b)", line = -1, adj = -0.22, font = 2, cex = 1)
+
+  plot.new()
+  allClasses <- sort(unique(obs[[categoriesCol]]))
   legend <- sapply(allClasses, function(group) sprintf("%s (N=%d)", group, sum(obs$Group == group)))
-  PlotBrainSizeonMass(obs, 
-                      legPos = "right", legXInset = legXInset, legYInset = .2, legCex = 1.1, legCats = legend,
-                      categoriesCol = categoriesCol, 
-                      catColourFn = .colFn,
-                      ptOutlineCol = "#333333",
-                      mar = c(5, 5.5, 1, 12) + .1, pch = 21,
-                      maxXTicks = 9, maxYTicks = 8,
-                      labelTransformed = FALSE)
-  .label(5, 1000, 20, 1200, "humans")
-  .mulabel(80, 1, 70, 22, "ratites")
-  .mulabel(.002, .00002, .002, .00038, "orb-web spiders")
-  arrows(.002, .00002, .0004, .00019, length = arrowLength)
-  arrows(.002, .00002, .00011, .00012, length = arrowLength)
-  mtext("b)", line = -1, adj = -0.22, font = 2, cex = 1.5)
+  par(mar = c(4, 4, 2, 0))
+  legend("left", legend,
+         title = JCapitalise(categoriesCol), 
+         pch = 21, col = "#333333", pt.bg = .colourForCat(legend), 
+         inset = c(-0.3, 0),
+         y.intersp = 1.2,
+         xpd = TRUE)
 }
 
 CreatePublicationFigure <- function() {
   
   obs <- ReadStandardisedObservations()
   
-  JPlotToPNG(file.path(OUTPUT_DIR, "fig1.png"), .goFigure(obs), units = "px", width = 900, aspectRatio = 2.4)
-  JPlotToPDF(file.path(OUTPUT_DIR, "fig1.pdf"), .goFigure(obs, legXInset = -.45, arrowLength = .04), aspectRatio = 2.4, pointsize = 5)
+  JPlotToPNG(file.path(OUTPUT_DIR, "fig1.png"), .goFigure(obs), units = "px", width = 1000, aspectRatio = 2.4, res = 130)
+  JPlotToPDF(file.path(OUTPUT_DIR, "fig1.pdf"), .goFigure(obs, arrowLength = .04), width = 180, aspectRatio = 2.4, pointsize = 10)
 }
 
 ######################################################################
@@ -186,4 +240,4 @@ CreatePublicationFigure()
 cat("Trait summary:\n")
 print(SummariseTraits())
 
-SummariseObservations()
+#SummariseObservations() Not used?

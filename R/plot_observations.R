@@ -10,7 +10,7 @@ COLOURS <- c("#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "
 
 # Draw tick marks and labels for a logarithmic axis.
 # 
-# Prevent axes being drawn normally when plotting with `code(... axes = FALSE)`.`
+# Prevent axes being drawn normally when plotting with `plot(... axes = FALSE)`.`
 #
 # @param axis 1=below, 2=left, 3=above and 4=right.
 drawLogAxis <- function(side, axisData, labelTransformed = FALSE, maxTicks = 10000, ...) {
@@ -20,7 +20,7 @@ drawLogAxis <- function(side, axisData, labelTransformed = FALSE, maxTicks = 100
   # Make the axis slightly shorter than the data range so it all fits in
   start <- ceiling(rng[1])
   end <- floor(rng[2])
-  while(is.null(ticks) || (end > start + 1 && length(ticks) > maxTicks)) {
+  while (is.null(ticks) || (end > start + 1 && length(ticks) > maxTicks)) {
     ticks <- seq(start, end, by = by)
     by <- by + 1
   }
@@ -28,7 +28,7 @@ drawLogAxis <- function(side, axisData, labelTransformed = FALSE, maxTicks = 100
   labels <- if (labelTransformed)
     as.character(ticks)
   else
-    sapply(ticks, function(i) as.expression(bquote(10^ .(i))))
+    sapply(ticks, function(i) as.expression(bquote(10 ^ .(i))))
   axis(side, at = 10 ^ ticks, labels = labels, ...)
 }
 
@@ -82,12 +82,12 @@ PlotObservations <- function(obs, xCol, yCol, categoriesCol = "order",
     # Expand column name "mass" to "body mass"
     colExpanded <- ifelse(col == "mass", "body mass", col)
     if (labelTransformed && logAxis) {
-      bquote('log'[10] * '(' * .(capsentence(colExpanded)) ~ "in" ~ .(FirstNonBlank(obs[[unitsColName(col)]])) * ')')
+      bquote('log'[10] * '(' * .(JCapitalise(colExpanded)) ~ "in" ~ .(FirstNonBlank(obs[[unitsColName(col)]])) * ')')
     } else {
       if (length(units) > 0)
-        sprintf("%s (%s)", capsentence(colExpanded), FirstNonBlank(obs[[unitsColName(col)]]))
+        sprintf("%s (%s)", JCapitalise(colExpanded), FirstNonBlank(obs[[unitsColName(col)]]))
       else
-        capsentence(colExpanded)
+        JCapitalise(colExpanded)
     }
   }
   
@@ -96,9 +96,9 @@ PlotObservations <- function(obs, xCol, yCol, categoriesCol = "order",
   categories <- as.factor(data[[categoriesCol]])
   # Colours
   col <- colourForCat(categories)
-  pt.col <- if(is.null(ptOutlineCol)) col else ptOutlineCol
+  pt.col <- if (is.null(ptOutlineCol)) col else ptOutlineCol
   # PCH
-  plotPch <- if(is.null(pch)) {
+  plotPch <- if (is.null(pch)) {
       as.numeric(categories) %% 25
     } else {
       pch
@@ -133,9 +133,9 @@ PlotObservations <- function(obs, xCol, yCol, categoriesCol = "order",
       legPch <- pch
     }
     legCol <- colourForCat(legCats)
-    leg.pt.col <- if(is.null(ptOutlineCol)) legCol else ptOutlineCol
+    leg.pt.col <- if (is.null(ptOutlineCol)) legCol else ptOutlineCol
     legend(legPos, legend = legCats, inset = c(legXInset, legYInset), 
-           title = capsentence(categoriesCol), 
+           title = JCapitalise(categoriesCol), 
            pch = legPch, col = leg.pt.col, pt.bg = legCol,
            cex = if (missing(legCex)) cex else legCex, xpd = TRUE)
   }

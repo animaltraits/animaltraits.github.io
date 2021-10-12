@@ -5,6 +5,7 @@
 
 library(JUtils)
 source("AT-functions.R")
+source("constants.R")
 
 # Extracts the references to be added to the manuscript 
 
@@ -12,7 +13,7 @@ obs <- ReadStandardisedObservations()
 
 all <- unique(obs$fullReference)
 
-FIRST_REFNUM <- 17
+FIRST_REFNUM <- 19
 
 for (trait in c("Metabolic rate", "Mass", "Brain size")) {
   

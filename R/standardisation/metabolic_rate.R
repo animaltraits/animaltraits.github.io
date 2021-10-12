@@ -10,9 +10,9 @@
 ConvertQ10 <- function(newTemp, q10, q, recordedTemp) q * q10 ^ ((newTemp - recordedTemp) / 10)
 
 # Choose a Q10 value from a conversions list. The conversions list should have a
-# field named "Q10" which is itself a list, containing Q10 values named for the taxon the apply to.
+# field named "Q10" which is itself a list, containing Q10 values named for the taxa they apply to.
 # Eg. 
-# MakarievaConversions$Q10 <- c(other = 2, fish = 1.65, Amphibia = 2.21, Reptilia = 2.44, Cephalopoda = 2.5)
+# conversions$Q10 <- c(other = 2, fish = 1.65, Amphibia = 2.21, Reptilia = 2.44, Cephalopoda = 2.5)
 #
 # The fallback taxon "other" is used if no others apply.
 ChooseQ10 <- function(rawRow, conversions) {
@@ -95,6 +95,7 @@ deriveMetabolicRateFromObservation <- function(rawRows, desiredUnits, standardTe
   measurementType <- "metabolic rate"
   rawRow <- measurementRow(rawRows, measurementType)
   q <- extractMeasurementFromObservation(rawRow, measurementType)
+  
   if (is.null(q))
     return(buildMetabolicRateRow(NULL, colName, unitsColName, NULL, addOriginalCols))
   # What is the substance that is being measured (e.g. CO2 or O2)?
@@ -106,7 +107,7 @@ deriveMetabolicRateFromObservation <- function(rawRows, desiredUnits, standardTe
   mass <- extractMeasurementFromObservationRows(rawRows, "mass")
   
   # Function to convert from mass-specific metabolic rate to whole body if it's not already
-  .requireWholeBodyMR <- function () {
+  .requireWholeBodyMR <- function() {
     if (haveMS) {
       # Convert from mass-specific to whole body - multiply by mass.
       # We have to do this, because otherwise we end up with units such as g/g/s which is simplified to 1/s

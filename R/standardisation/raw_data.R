@@ -79,6 +79,8 @@ fixByteOrderMark <- function(d) {
   d
 }
 
+TrimWS <- function(str) ifelse(is.null(str), str, gsub("^[[:space:]]+|[[:space:]]+$", "", str))
+
 # Copies the value from row 1, specified column, into all blank values of the column.
 # This is so that source file values only need be entered once, in the first row.
 fillSourceColumn <- function(data, column, file) {
@@ -233,6 +235,7 @@ readDirOrFile <- function(dirOrFile, ignoreFiles = character(0)) {
 #
 # # Test if units represent volume
 # isVolume <- unitsContainType(mrUnits, "numerator", "L")
+# 
 unitsContainType <- function(units, numerator_denominator, refType) {
   .littleRedCorvette <- function(from, to) {
     # Just a wrapper around udunits2::ud.are.convertible which crashes R if given a 0 length vector
@@ -248,7 +251,7 @@ unitsContainType <- function(units, numerator_denominator, refType) {
 
 # Returns TRUE if the specified units represent mass-specific metabolic rate
 unitsIndicateMassSpecific <- function(units) {
-  # Units represent mass-specific metabolic rate if the numerator contains a term for mass
+  # Units represent mass-specific metabolic rate if the denominator contains a term for mass
   unitsContainType(units, "denominator", "g")
 }
 
