@@ -9,7 +9,7 @@ unpublished) paper:
 
 Herberstein, M. E. et al. 2021. An animal trait database for body mass, metabolic rate and brain size.
 
-The database and associated code can be freely reused with no
+The database and associated software can be freely reused with no
 restrictions. If you use the database in your research, we request
 that you cite the paper, and, when possible, also cite the relevant
 original data sources that are identified in the database.
