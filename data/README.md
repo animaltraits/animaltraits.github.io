@@ -20,6 +20,7 @@ Python](https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-
 ## Sub-folders
 
 `raw` - contains raw data in UTF-8 encoded CSV files. Sub-folders are used to organise files, but do not affect processing in any way.
+`Endnote-dbs` - contains an Endnote database that contains references for all of the raw data sources.
 
 ## Files
 
