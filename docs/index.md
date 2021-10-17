@@ -2,12 +2,12 @@
 show_downloads: true
 ---
 
-The animal traits database is a curated database containing body mass,
+AnimalTraits is a curated database containing body mass,
 metabolic rate and brain size measurements across a wide range of
 terrestrial animal taxa. The database is described in the (as yet
 unpublished) paper:
 
-Herberstein, M. E. et al. 2021. An animal trait database for body mass, metabolic rate and brain size.
+Herberstein, M. E. et al. 2021. AnimalTraits: a curated animal trait database for body mass, metabolic rate and brain size
 
 The database and associated software can be freely reused with no
 restrictions. If you use the database in your research, we request
@@ -57,7 +57,7 @@ The database contains:
   <a rel="dct:publisher"
      href="https://animaltraits.org">https://animaltraits.org</a>
   has waived all copyright and related or neighboring rights to
-  <span property="dct:title">the animal traits database</span>.
+  <span property="dct:title">AnimalTraits</span>.
 </p>
 
 ### Source accessibility

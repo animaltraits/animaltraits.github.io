@@ -1,4 +1,4 @@
-# Animal traits data processing
+# AnimalTraits data processing
 
 This directory contains the R code for transforming raw animal trait
 observations into a standardised form, plus some functions for
@@ -19,7 +19,7 @@ The list of traits and units to be written to the output file is
 defined in [`standardisation/traits-config.R`](standardisation/traits-config.R). It also contains
 conversion factors, eg. O2 consumption to Joules. You can edit this file if you wish to re-generate the database with different units or conversion factors. For example, to generate the database with brain sizes in grams, edit [`standardisation/traits-config.R`](standardisation/traits-config.R) and change `list("brain size", units = "kg"` to `list("brain size", units = "g"`, then execute [`analysis.R`](analysis.R).
 
-The file [`Animal traits.Rproj`](Animal traits.Rproj) is a Rstudio project file.
+The file [`AnimalTraits.Rproj`](AnimalTraits.Rproj) is a Rstudio project file.
 
 
 ## Utility functions

@@ -1,17 +1,17 @@
-## Welcome to the Animal Traits database
+## Welcome to AnimalTraits
 
-### An animal trait database containing body mass, metabolic rate and brain size
+### AnimalTraits: an animal trait database containing body mass, metabolic rate and brain size
 
-This is the animal traits database project. It contains two components: 
+This is the AnimalTraits project. It contains two components: 
 
 - the raw data and R scripts used to compile the database; 
 - source for the website. 
 
 The database is described in the paper:
 
-Herberstein, M. E. et al. 2021. An animal trait database for body mass, metabolic rate and brain size.
+Herberstein, M. E. et al. 2021. AnimalTraits: a curated animal trait database for body mass, metabolic rate and brain size
 
-The database can be downloaded from the [animal traits website](https://animaltraits.org/).
+The database can be downloaded from the [AnimalTraits website](https://animaltraits.org/).
 
 #### Database compilation
 
