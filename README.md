@@ -2,6 +2,8 @@
 
 ### AnimalTraits: an animal trait database containing body mass, metabolic rate and brain size
 
+[![DOI](https://zenodo.org/badge/401195184.svg)](https://zenodo.org/badge/latestdoi/401195184)
+
 This is the AnimalTraits project. It contains two components: 
 
 - the raw data and R scripts used to compile the database; 
