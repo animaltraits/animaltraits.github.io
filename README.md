@@ -1,6 +1,6 @@
 ## Welcome to AnimalTraits
 
-### AnimalTraits: an animal trait database containing body mass, metabolic rate and brain size
+### AnimalTraits: a curated animal trait database for body mass, metabolic rate and brain size
 
 [![DOI](https://zenodo.org/badge/401195184.svg)](https://zenodo.org/badge/latestdoi/401195184)
 
