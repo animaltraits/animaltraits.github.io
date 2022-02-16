@@ -7,7 +7,7 @@
 # Mapping from trait display names to column names
 TraitNames <- c("Metabolic rate" = "metabolic rate",
                 "Mass-specific metabolic rate" = "mass-specific metabolic rate",
-                "Mass" = "mass",
+                "Body mass" = "body mass",
                 "Brain size" = "brain size")
 
 
@@ -29,7 +29,7 @@ OBS_FILE <- "observations.csv"
 CHECKED_TAXA_FILE <- file.path(DATA_DIR, "checked-taxa.csv")
 
 # Known measurement types. Any measurement type not in this list is reported as an error
-MEASUREMENT_TYPES <- c("metabolic rate", "mass", "brain size")
+MEASUREMENT_TYPES <- c("metabolic rate", "body mass", "brain size")
 
 # List of column names which contain non-measurement/trait data
 RANK_COLS <- c("phylum", "class", "order", "family", "genus", "species", "specificEpithet")

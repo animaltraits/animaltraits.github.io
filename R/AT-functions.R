@@ -46,7 +46,8 @@ ReadStandardisedObservations <- function(fileName = "observations.csv", adjustCo
 #' (after accounting for sample size).
 #'
 #' @param obs Data frame (or tibble) of standardised observations (see
-#'   \code{ReadStandardisedObservations}).
+#'   \code{ReadStandardisedObservations}). This may be a custom subset of the
+#'   observations database.
 #' @param combineSexes If TRUE (the default), the value in the \code{sex} column
 #'   is ignored when grouping.
 #' @param excludeMorphospecies If TRUE (the default), morphospecies (e.g.
@@ -59,9 +60,15 @@ ReadStandardisedObservations <- function(fileName = "observations.csv", adjustCo
 #'
 #' @seealso \code{\link{ReadStandardisedObservations}}
 #'
-#' @examples 
+#' @examples
 #' obs <- ReadStandardisedObservations()
 #' traits <- SpeciesTraitsFromObservations(obs)
+#'
+#'
+#' # Obtain species traits, but exclude raw observations with body mass originally reported as a range (number-number)
+#' # Range observations have a minimum (and maximum) value specified.
+#' obs2 <- obs[is.na(obs$`body mass - minimum`), ]
+#' traits2 <- SpeciesTraitsFromObservations(obs2)
 #' 
 SpeciesTraitsFromObservations <- function(obs, combineSexes = TRUE, excludeMorphospecies = TRUE, aggregationFn = mean, groupOnSpeciesOnly = FALSE) {
   # Expand out to 1 observation sample per row

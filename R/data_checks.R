@@ -180,22 +180,22 @@ CheckValueOutliers <- function(obs, outDir, reportTraits = "brain size", reportC
     # For each class...
     for (cl in unique(obs$class)) {
       
-      cobs <- na.omit(obs[obs$class == cl, c("mass", trait, "species", "order", "observationID", "file", "line")])
+      cobs <- na.omit(obs[obs$class == cl, c("body mass", trait, "species", "order", "observationID", "file", "line")])
       if (nrow(cobs) > 1) {
         JPlotToPNG(file.path(outDir, sprintf("%s-%s.png", trait, cl)), {
           par(mar = c(8, 8, 6, 1))
-          DebuggingPlot(cobs, "mass", trait, main = cl, cex.main = 10, cex.axis = 6, cex.lab = 10)
+          DebuggingPlot(cobs, "body mass", trait, main = cl, cex.main = 10, cex.axis = 6, cex.lab = 10)
           
           # Draw linear regression of log/log values
-          df <- data.frame(x = log(cobs$mass), y = log(cobs[[trait]]))
+          df <- data.frame(x = log(cobs$`body mass`), y = log(cobs[[trait]]))
           l <- lm(y ~ x, data = df)
-          xs <- seq(min(cobs$mass), max(cobs$mass), length.out = 200)
+          xs <- seq(min(cobs$`body mass`), max(cobs$`body mass`), length.out = 200)
           ys <- exp(predict(l, newdata = data.frame(x = log(xs))))
           lines(xs, ys)
           
           # Identify points that warrant a closer look
           dubious <- cooks.distance(l) > 4 / nrow(cobs)
-          points(cobs[dubious, c("mass", trait)], pch = "*", col = "red", cex = 10)
+          points(cobs[dubious, c("body mass", trait)], pch = "*", col = "red", cex = 10)
           if (trait %in% reportTraits && cl %in% reportClasses) {
             for (di in which(dubious)) {
               cat(sprintf("%s %s too %s, species %s, line %d, file %s\n",
@@ -227,7 +227,7 @@ HighlyVariableSpecies <- function(obs, trait, minCV = 0.9, minFactor = 8) {
   Filter(.isBad, unique(df$species))
 }
 
-ReportHighlyVariableSpecies <- function(obs, traits = c("mass", "metabolic rate", "brain size")) {
+ReportHighlyVariableSpecies <- function(obs, traits = c("body mass", "metabolic rate", "brain size")) {
 
   if (!"observationID" %in% names(obs))
     stop("observations must include internal (reference) columns observationID, file and line")
@@ -262,6 +262,12 @@ CheckColumnDoco <- function(obs = ReadStandardisedObservations(), docFile = COLS
 
   if (!isTRUE(all.equal(doco$Column, names(obs)))) {
     msg <- "Columns in the generated database do not match the documented columns"
+    docButMissing <- setdiff(doco$Column, names(obs))
+    if (length(docButMissing) > 0)
+      cat(sprintf("Columns documented but missing from data set: %s\n", JToSentence(docButMissing)))
+    notDoced <- setdiff(names(obs), doco$Column)
+    if (length(notDoced) > 0)
+      cat(sprintf("Columns in data but not documented: %s\n", JToSentence(notDoced)))
     stop(msg)
   }
 }

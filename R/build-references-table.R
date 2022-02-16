@@ -15,7 +15,7 @@ all <- unique(obs$fullReference)
 
 FIRST_REFNUM <- 19
 
-for (trait in c("Metabolic rate", "Mass", "Brain size")) {
+for (trait in c("Metabolic rate", "Body mass", "Brain size")) {
   
   r <- unique(obs$fullReference[!is.na(obs[[TraitNames[trait]]])])
   nums <- match(r, all) + FIRST_REFNUM

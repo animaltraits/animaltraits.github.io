@@ -63,7 +63,7 @@ SummariseObservations <- function() {
   .summariseSubset <- function(name, subset) {
     cat(sprintf("%s: %d observations in %d species\n", name, sum(subset), nrow(unique(obs[subset, "species"]))))
   }  
-  hasMass <- !is.na(obs$mass)
+  hasMass <- !is.na(obs$`body mass`)
   hasMR <- !is.na(obs$`metabolic rate`) & !is.na(obs$`mass-specific metabolic rate`)
   hasBrain <- !is.na(obs$`brain size`)
   .summariseSubset("Mass and metabolic rate", hasMass & hasMR)
@@ -93,7 +93,7 @@ SummariseObservations <- function() {
                           maxXTicks = 10, maxYTicks = 9,
                           labelTransformed = FALSE)
              , aspectRatio = 16 / 9, res = 120)
-  .dbgPlot("MR-mass dbg.png", "mass", "metabolic rate")
+  .dbgPlot("MR-mass dbg.png", "body mass", "metabolic rate")
   JPlotToPNG(file.path(OUTPUT_DIR, "Brain-mass.png"), 
              PlotBrainSizeonMass(obs, legPos = "bottomright", legXInset = -.28, legYInset = .2, legCex = 1.3,
                                  #main = "Brain size on Mass", 
@@ -104,11 +104,11 @@ SummariseObservations <- function() {
                                  maxXTicks = 9, maxYTicks = 8,
                                  labelTransformed = FALSE)
              , aspectRatio = 16 / 9, res = 120)
-  .dbgPlot("Brain-mass dbg.png", "mass", "brain size")
+  .dbgPlot("Brain-mass dbg.png", "body mass", "brain size")
   
   JPlotToPNG(file.path(OUTPUT_DIR, "MSMR-mass.png"), 
              PlotSpecificMRonMass(obs, legXInset = -.265, main = "Mass-specific Metabolic Rate on Mass", categoriesCol = "class"))
-  .dbgPlot("MSMR-mass dbg.png", "mass", "mass-specific metabolic rate")
+  .dbgPlot("MSMR-mass dbg.png", "body mass", "mass-specific metabolic rate")
 }
 
 
@@ -146,9 +146,7 @@ transparentColour <- function(colour, alpha) {
   
   colToLab <- function(col) {
     units <- FirstNonBlank(obs[[unitsColName(col)]])
-    # Expand column name "mass" to "body mass"
-    colExpanded <- ifelse(col == "mass", "body mass", col)
-    sprintf("%s (%s)", JCapitalise(colExpanded), FirstNonBlank(obs[[unitsColName(col)]]))
+    sprintf("%s (%s)", JCapitalise(col), FirstNonBlank(obs[[unitsColName(col)]]))
   }
   
   # Get data to be plotted
@@ -188,7 +186,7 @@ transparentColour <- function(colour, alpha) {
   layout(matrix(1:3, nrow = 1), widths = c(5, 5, 3))
   ### Metabolic rate to mass
   par(mar = c(5, 5.5, 1, 0) + .1, xpd = TRUE)
-  .plotObservations(obs, "mass", "metabolic rate", xTicks = seq(-8, 2, 2), yTicks = seq(-7, 3, 2),
+  .plotObservations(obs, "body mass", "metabolic rate", xTicks = seq(-8, 2, 2), yTicks = seq(-7, 3, 2),
                     ylim = c(10e-9, 10e2))
   
   .mulabel(20, .06, 4, 1.6, "ant eaters")
@@ -204,7 +202,7 @@ transparentColour <- function(colour, alpha) {
   mtext("a)", line = -1, adj = -0.23, font = 2, cex = 1)
   
   ### Brain size to mass
-  .plotObservations(obs, "mass", "brain size", xTicks = seq(-7, 3, 2), yTicks = seq(-8, 0, 2))
+  .plotObservations(obs, "body mass", "brain size", xTicks = seq(-7, 3, 2), yTicks = seq(-8, 0, 2))
   .label(5, 1, 20, 1.2, "humans")
   .mulabel(80, .001, 70, .022, "ratites")
   .mulabel(.002, .00000002, .002, .00000038, "orb-web spiders")

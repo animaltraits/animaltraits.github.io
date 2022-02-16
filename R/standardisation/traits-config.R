@@ -14,12 +14,11 @@ CONVERSIONS$O2ToJoules <- set_units(20, "J/ml")
 # Q10 for standardising metabolic rate temperature of endotherms
 CONVERSIONS$Q10 <- c(fish = 1.65, Amphibia = 2.21, Reptilia = 2.44, Cephalopoda = 2.5, other = 2)
 
-#THIS IS NOT USED, JUST HERE FOR DOCUMENTATION 
-# Respiratory quotient, for converting volume of CO2 production or O2
-# consumption. Applied to Dark respiration rates in green leaves (Table S10),
-# Dark respiration rates in seedlings and saplings of vascular plants (Table
-# S11), Endogenous respiration rates in heterotrophic prokaryotes (Table S1a)
-#CONVERSIONS$respiratoryQuotient <- 1
+# Note that respiratory quotient, for converting between volume of CO2
+# production and O2 consumption, is not defined in here, because it depends on
+# the metabolism in question, so there is no suitable single value. We only
+# perform the conversion if the data source defines the appropriate respiratory
+# quotient, and it has been recorded in the raw data file
 
 # General conversions
 # Molar mass for converting from moles to mass
@@ -30,15 +29,17 @@ CONVERSIONS$density <- list(CO2 = as_units(1.977, "kg/m^3"),
                             # Brain density from Iwaniuk, A. N., & Nelson, J. E.
                             # (2002). Can endocranial volume be used as an
                             # estimate of brain size in birds? Canadian Journal
-                            # of Zoology, 80, 16–23.
-                            # Also Stephan H, Frahm H, Baron G: New and Revised Data on Volumes of Brain Structures in Insectivores and Primates. Folia Primatol 1981;35:1-29. doi: 10.1159/000155963
+                            # of Zoology, 80, 16–23. Also Stephan H, Frahm H,
+                            # Baron G: New and Revised Data on Volumes of Brain
+                            # Structures in Insectivores and Primates. Folia
+                            # Primatol 1981;35:1-29. doi: 10.1159/000155963
                             brain = as_units(1.036, "g/mL"))
 
 
 # File which specifies what traits should be read from the raw data, and
 # included in the observations.csv file, and how they should be standardised
 traits_list <- list(
-  list("mass", units = "kg"),
+  list("body mass", units = "kg"),
   list("metabolic rate", units = "W", temperature = 25, conversions = CONVERSIONS),
   list("mass-specific metabolic rate", units = "W/kg", temperature = 25, conversions = CONVERSIONS),
   list("brain size", units = "kg", conversions = CONVERSIONS) # Brain size can be either mass or volume as desired

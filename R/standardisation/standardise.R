@@ -11,7 +11,7 @@ library(tibble)
 library(readr)
 
 
-source("standardisation/mass.R")
+source("standardisation/body_mass.R")
 source("standardisation/brain_size.R")
 source("standardisation/metabolic_rate.R")
 source("standardisation/raw_data.R")
@@ -89,11 +89,11 @@ extractAndStandardiseTraitsFromDirOrFile <- function(dirOrFile, traitsList, chec
     # Switch based on trait type
     switch(traitSpec[[1]],
             # Mass
-            mass =                           iterateObservations(data, deriveMassFromObservation, traitSpec$units, 'mass', 'mass - units'),
+            `body mass` =                    iterateObservations(data, deriveBodyMassFromObservation, traitSpec$units, 'body mass', 'body mass - units'),
             # Metabolic rate (whole body)
-            `metabolic rate` =               iterateObservations(data, deriveMetabolicRateFromObservation, traitSpec$units, traitSpec$temperature, traitSpec$conversions, 'metabolic rate', 'metabolic rate - units', addOriginalCols = TRUE),
+            `metabolic rate` =               iterateObservations(data, deriveMetabolicRateFromObservation, traitSpec$units, traitSpec$temperature, traitSpec$conversions, 'metabolic rate', 'metabolic rate - units', addMetaCols = TRUE),
             # Metabolic rate (mass-specific)
-            `mass-specific metabolic rate` = iterateObservations(data, deriveMetabolicRateFromObservation, traitSpec$units, traitSpec$temperature, traitSpec$conversions, 'mass-specific metabolic rate', 'mass-specific metabolic rate - units', addOriginalCols = FALSE),
+            `mass-specific metabolic rate` = iterateObservations(data, deriveMetabolicRateFromObservation, traitSpec$units, traitSpec$temperature, traitSpec$conversions, 'mass-specific metabolic rate', 'mass-specific metabolic rate - units', addMetaCols = FALSE),
             # Brain size
             `brain size` =                   iterateObservations(data, deriveBrainSizeFromObservation, traitSpec$units, traitSpec$conversions, 'brain size', 'brain size - units'),
             

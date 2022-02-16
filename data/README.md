@@ -11,10 +11,12 @@ UTF-8 by default, but MS Excel requires some effort, see:
 - [Is it possible to force Excel recognize UTF-8 CSV files automatically?](https://stackoverflow.com/questions/6002256/is-it-possible-to-force-excel-recognize-utf-8-csv-files-automatically)
 - [How to open UTF-8 CSV file in Excel without mis-conversion of characters in Japanese and Chinese language for both Mac and Windows?](https://answers.microsoft.com/en-us/msoffice/forum/all/how-to-open-utf-8-csv-file-in-excel-without-mis/1eb15700-d235-441e-8b99-db10fafff3c2)
 
-or query the Internet for `UTF8 CSV`.  In R, UTF-8 CSV files can be
+or query the Internet for `UTF8 CSV`. After editing a CSV file in Excel, be careful to either `Save As` and specify `Save as type: CSV (Comma delimited) (*.csv)`, or else `Export` to file type `CSV (Comma delimited) (*.csv)`. Simply clicking `Save` may save the file with the wrong format (e.g. tab-separated values).
+
+In R, UTF-8 CSV files can be
 opened by using `read.csv(..., encoding = "UTF-8")`. See this post for
 reading UTF-8 in Python: [Reading a UTF8 CSV file with
-Python](https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-python).
+Python](https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-python). Raw files can be written from R using `write.csv(..., row.names = FALSE, fileEncoding = "UTF-8", na = "")`.
 
 
 ## Sub-folders

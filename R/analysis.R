@@ -55,6 +55,8 @@ CopyFilesToWebsite <- function(files = c(file.path(OUTPUT_DIR, "observations.csv
 }
 
 
+################################################################################
+
 # Treat any warnings as errors
 options(warn = 2)
 # Read in raw data, and convert to standard units etc. then write to another CSV

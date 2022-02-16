@@ -79,15 +79,13 @@ PlotObservations <- function(obs, xCol, yCol, categoriesCol = "order",
   unitsColName <- function(col) ifelse(adjustedColNames, paste0(col, "...units"), paste(col, "- units"))
   colToLab <- function(col, logAxis) {
     units <- FirstNonBlank(obs[[unitsColName(col)]])
-    # Expand column name "mass" to "body mass"
-    colExpanded <- ifelse(col == "mass", "body mass", col)
     if (labelTransformed && logAxis) {
-      bquote('log'[10] * '(' * .(JCapitalise(colExpanded)) ~ "in" ~ .(FirstNonBlank(obs[[unitsColName(col)]])) * ')')
+      bquote('log'[10] * '(' * .(JCapitalise(col)) ~ "in" ~ .(FirstNonBlank(obs[[unitsColName(col)]])) * ')')
     } else {
       if (length(units) > 0)
-        sprintf("%s (%s)", JCapitalise(colExpanded), FirstNonBlank(obs[[unitsColName(col)]]))
+        sprintf("%s (%s)", JCapitalise(col), FirstNonBlank(obs[[unitsColName(col)]]))
       else
-        JCapitalise(colExpanded)
+        JCapitalise(col)
     }
   }
   
@@ -147,21 +145,21 @@ DebuggingPlot <- function(obs, xCol, yCol, ...) {
   xlim <- range(data[[xCol]])
   xlim[1] <- xlim[1] / 10
   # as.name(xCol) causes an error in reformulate
-  plot(reformulate(xCol, as.name(yCol)), data = data, log = "xy", pch = 16, xlim = xlim, ...)
+  plot(reformulate(paste0("`", xCol, "`"), as.name(yCol)), data = data, log = "xy", pch = 16, xlim = xlim, ...)
   text(x = data[[xCol]], y = data[[yCol]], sprintf("%s (%s)", data$species, data$observationID), adj = 1.05, cex = .8)
 }
 
 
 PlotMRonMass <- function(obs, categoriesCol = "order", legend = TRUE, ...) {
-  PlotObservations(obs, "mass", "metabolic rate", categoriesCol = categoriesCol, legend = legend, ...)  
+  PlotObservations(obs, "body mass", "metabolic rate", categoriesCol = categoriesCol, legend = legend, ...)  
 }
 
 PlotSpecificMRonMass <- function(obs, categoriesCol = "order", legend = TRUE, ...) {
-  PlotObservations(obs, "mass", "mass-specific metabolic rate", categoriesCol = categoriesCol, legend = legend, ...)
+  PlotObservations(obs, "body mass", "mass-specific metabolic rate", categoriesCol = categoriesCol, legend = legend, ...)
 }
 
 PlotBrainSizeonMass <- function(obs, categoriesCol = "order", legend = TRUE, ...) {
-  PlotObservations(obs, "mass", "brain size", categoriesCol = categoriesCol, legend = legend, ...)  
+  PlotObservations(obs, "body mass", "brain size", categoriesCol = categoriesCol, legend = legend, ...)  
 }
 
 PlotBrainSizeonMR <- function(obs, categoriesCol = "order", legend = TRUE, ...) {

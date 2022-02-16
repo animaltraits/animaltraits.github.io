@@ -14,11 +14,11 @@ ShowObservations <- function(species) {
   
   bo <- obs[obs$species == species,]
   cat(sprintf("Observations for species %s\n", species))
-  print(as.data.frame(bo[, c("file", "line", "mass", "mass - units", "brain size", "brain size - units", "metabolic rate", "metabolic rate - units")]))
+  print(as.data.frame(bo[, c("file", "line", "body mass", "body mass - units", "brain size", "brain size - units", "metabolic rate", "metabolic rate - units")]))
 
   cat(sprintf("Traits for species %s\n", species))
   bt <- traits[traits$species == species,]
-  print(as.data.frame(bt[, c("mass", "mass - units", "brain size", "brain size - units", "metabolic rate", "metabolic rate - units", "sociality")]))
+  print(as.data.frame(bt[, c("body mass", "body mass - units", "brain size", "brain size - units", "metabolic rate", "metabolic rate - units", "sociality")]))
 }
 
 ShowObservations("Mephitis mephitis")

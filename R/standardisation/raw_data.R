@@ -13,6 +13,9 @@ NUMBER_REGEX <- "[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?"
 # numbers or numeric ranges of the form "<number>-<number>".
 # Throws an error if the input contains values which can't be converted.
 convertNumberOrRange <- function(v) {
+  # Assume a single value. If it's not, this function can easily be vectorised
+  if (length(v) != 1) stop("Expected a single value")
+
   numberPattern <- paste0("^[[:space:]]*",
                           NUMBER_REGEX,
                           "[[:space:]]*$")
@@ -29,7 +32,8 @@ convertNumberOrRange <- function(v) {
                  paste(which(!grepl(numberOrRangePattern, v)) + 1, collapse = ", ")))
   }
   
-  extractRange <- function(vr) {
+  # Returns the middle value of a range
+  extractRangeValues <- function(vr) {
     # Extract a number from a part of a string, where the limits (start and stop
     # indices) of the number are identified by match data from a call to
     # regexec.
@@ -42,19 +46,21 @@ convertNumberOrRange <- function(v) {
     
     m <- regexec(rangePattern, vr)
     sapply(1:length(m), function(i) {
-      mean(c(getGroup(m[[i]], 2, vr[i]), getGroup(m[[i]], 4, vr[i])))
+      start <- getGroup(m[[i]], 2, vr[i])
+      end <- getGroup(m[[i]], 4, vr[i])
+      c(mean(c(start, end)), min(start, end), max(start, end))
     })
   }
+
   
   # We can assume every value is either a simple number or a range
-  ranges <- grepl(rangePattern, v)
-  numbers <- !ranges
-  x <- numeric(length(v))
-  # Convert numbers
-  x[numbers] <- type.convert(v[numbers])
-  # Convert ranges
-  x[ranges] <- extractRange(v[ranges])
-  x
+  range <- grepl(rangePattern, v)
+  if (range)
+    # Convert range to (middle, min, max)
+    extractRangeValues(v)
+  else
+    # Convert number. Minimum and maximum are unknown
+    c(type.convert(v), NA, NA)
 }
 
 # Removes a byte-order mark from the first column name
@@ -95,7 +101,7 @@ fillSourceColumn <- function(data, column, file) {
 # Reads a single csv file of trait data, adjusting as appropriate:
 # * observationID is prepended with the file name to make it unique across files.
 # * Columns for file name and line number are added to aid in error reporting.
-readRawDataFile <- function(file, rangeToMidRange = TRUE) {
+readRawDataFile <- function(file) {
   tryCatch({
     # fread now reads in CSV files with a BOM (or possibly due to *NIX line
     # endings) as a single column! data.table v1.12.8
@@ -152,14 +158,6 @@ readRawDataFile <- function(file, rangeToMidRange = TRUE) {
     # Silently assume that missing sample size are 1
     d$sampleSizeValue <- ifelse(is.na(d$sampleSizeValue), 1, d$sampleSizeValue)
     
-    # Handle some unusual values. Start by trying to convert to a simple number
-    values <- type.convert(d$measurementValue, as.is = TRUE)
-    if (is.numeric(values)) {
-      d$measurementValue <- values
-    } else {
-      d$measurementValue <- convertNumberOrRange(d$measurementValue)
-    }
-    
     # Report missing observation IDs
     if (any(is.na(d$observationID)))
       ReportLines(d[is.na(d$observationID), ], "Missing observationID")
@@ -207,7 +205,6 @@ readDirOrFile <- function(dirOrFile, ignoreFiles = character(0)) {
     files <- files[!grepl(ignore, files, fixed = TRUE)]
   
   # Read them in
-  # TODO allow handling of ranges in values to be configured. Currently just take midpoint
   data <- lapply(files, readRawDataFile)
   for (dd in data) {
     if (ncol(dd) != 24)
@@ -298,7 +295,7 @@ extractUnits <- function(unitStr) {
 # Returns a vector of "file:line" or "file:(line-line)" strings.
 LineSpecs <- function(rows, collapse = "\n\t") {
   .succinctLines <- function(nums) {
-    if(length(nums) == 1)
+    if (length(nums) == 1)
       nums
     else
       sprintf("(%d-%d)", min(nums), max(nums))
@@ -324,7 +321,8 @@ measurementRow <- function(rows, measurementType) {
   rows[rows$measurementType == measurementType, ]
 }
 
-# Extract a single value, with units, from a single row
+# Extract a value, with units, from a single row.
+# Values is a vector with length 3, mean or midpoint, minimum, maximum.
 extractMeasurementFromObservation <- function(row, measurementType) {
   # Expect 0 or 1 values per type per observation
   if (nrow(row) > 1)
@@ -332,10 +330,17 @@ extractMeasurementFromObservation <- function(row, measurementType) {
   if (nrow(row) < 1)
     return(NULL)
   
+  # Convert measurementValue to a single numeric value. Usually it is already a
+  # single number, but some values are specfied as a range, e.g. "7-11", and we
+  # just take the mid value
+  v <- convertNumberOrRange(row$measurementValue)
+
+  # Now apply units
   u <- extractUnits(row$measurementUnit)
-  v <- set_units(row$measurementValue, u$units, mode = "standard")
-  # We allow a factor with the units, eg. "(CO2) x6.4e-5 mm3".
-  # Handle it by simply multiplying by the factor
+  v <- set_units(v, u$units, mode = "standard")
+  # We allow a factor with the units but it is extracted and recorded
+  # separately, eg. "(CO2) x6.4e-5 mm3". Handle it by simply multiplying by the
+  # factor
   if (!is.na(u$factor) && u$factor != 0)
     v <- v * u$factor
   attr(v, "substance") <- u$substance
@@ -361,17 +366,25 @@ deriveMeasurementFromObservation <- function(row, measurementType, desiredUnits)
   m
 }
 
-# Returns a 1-row data frame with columns named colName and unitsColName, and
-# values are the value from valueWithUnits and the units from valueWithUnits.
-buildValueAndUnitsRow <- function(valueWithUnits, colName, unitsColName) {
+# Returns a 1-row data frame with columns named colName, unitsColName,
+# "<colName> min" and "<colName> max", and values are the value from
+# valueWithUnits[1], the units from valueWithUnits, valueWithUnits[2], valueWithUnits[3].
+buildValueAndUnitsRow <- function(valueWithUnits, colName, unitsColName, includeMinMax = TRUE) {
   # Modified to return a 1-row data frame, 4/8/20, previously returned a vector
   # but that stopped working, presumably after R v4 upgrade
   if (is.null(valueWithUnits))
-    v <- data.frame(NA, "")
-  else
-    v <- data.frame(drop_units(valueWithUnits), as.character(units(valueWithUnits)))
-  names(v) <- c(colName, unitsColName)
-  v
+    v <- data.frame(NA, "", NA, NA)
+  else {
+    vals <- drop_units(valueWithUnits)
+    v <- data.frame(vals[1], as.character(units(valueWithUnits)), vals[2], vals[3])
+  }
+  names(v) <- c(colName, unitsColName, paste(colName, "- minimum"), paste(colName, "- maximum"))
+  if (includeMinMax) {
+    v
+  } else {
+    # Don't add min & max columns
+    v[, seq_len(ncol(v) - 2)]
+  }
 }
 
 # Returns a single row data frame with the original trait values and units (i.e.

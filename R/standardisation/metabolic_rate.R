@@ -64,24 +64,28 @@ ConsumptionToEnergy <- function(value, what, respiratoryQuotient, conversions) {
 # Attempts to return TRUE if the specified taxonomic class needs to have
 # metabolic rate temperature standardised, i.e. it is not endothermic.
 needsMRTemperatureTransform <- function(clss) {
-  # For now, just assume birds and mammals are endothermic. 
+  # Just assume birds and mammals are endothermic. 
   # Of course, it's actually more complicated than that
   clss != "Aves" && clss != "Mammalia"
 }
 
 # Builds and returns a 1-row data frame with metabolic rate columns
-buildMetabolicRateRow <- function(val, colName, unitsColName, row, addOriginalCols) {
+buildMetabolicRateRow <- function(val, colName, unitsColName, row, addMetaCols) {
   rq <- row$respiratoryQuotient
   if (is.null(rq)) rq <- NA
   t <- row$temperature
   if (is.null(t)) t <- NA
-  if (addOriginalCols) {
+  # Convert metabolic rate to lower case because it is essentially a categorical variable
+  if (!is.null(row)) {
+    row$measurementMethod <- tolower(row$measurementMethod)
+  }
+  if (addMetaCols) {
     BuildTraitRow(val, colName, unitsColName, row, 
                   `original respiratoryQuotient` = rq,
                   `original temperature` = t)
   } else {
-    # Don't add any original columns
-    buildValueAndUnitsRow(val, colName, unitsColName)
+    # Don't add any meta columns
+    buildValueAndUnitsRow(val, colName, unitsColName, includeMinMax = FALSE)
   }
 }
 
@@ -90,21 +94,21 @@ buildMetabolicRateRow <- function(val, colName, unitsColName, row, addOriginalCo
 # specified temperature.
 #
 # Returns NULL if metabolic rate isn't defined, or cannot be derived.
-deriveMetabolicRateFromObservation <- function(rawRows, desiredUnits, standardTemp, conversions, colName, unitsColName, addOriginalCols) {
+deriveMetabolicRateFromObservation <- function(rawRows, desiredUnits, standardTemp, conversions, colName, unitsColName, addMetaCols) {
   # Get raw value
   measurementType <- "metabolic rate"
   rawRow <- measurementRow(rawRows, measurementType)
   q <- extractMeasurementFromObservation(rawRow, measurementType)
   
   if (is.null(q))
-    return(buildMetabolicRateRow(NULL, colName, unitsColName, NULL, addOriginalCols))
+    return(buildMetabolicRateRow(NULL, colName, unitsColName, NULL, addMetaCols))
   # What is the substance that is being measured (e.g. CO2 or O2)?
   substance <- attr(q, "substance")
 
   # Is this metabolic rate mass-specific?
   haveMS <- unitsIndicateMassSpecific(units(q))
   # Get the mass for this observation
-  mass <- extractMeasurementFromObservationRows(rawRows, "mass")
+  mass <- extractMeasurementFromObservationRows(rawRows, "body mass")
   
   # Function to convert from mass-specific metabolic rate to whole body if it's not already
   .requireWholeBodyMR <- function() {
@@ -154,7 +158,7 @@ deriveMetabolicRateFromObservation <- function(rawRows, desiredUnits, standardTe
     if (is.null(mass)) {
       # Can't convert without mass. I don't think this needs to be reported
       #ReportLines(rawRows, "Cannot convert between mass-specific and whole body metabolic rate because mass is not available for observation")
-      return(buildMetabolicRateRow(NULL, colName, unitsColName, NULL, addOriginalCols))
+      return(buildMetabolicRateRow(NULL, colName, unitsColName, NULL, addMetaCols))
     }
     if (wantMS && !haveMS) {
       # Convert to mass-specific metabolic rate - divide by mass
@@ -176,6 +180,6 @@ deriveMetabolicRateFromObservation <- function(rawRows, desiredUnits, standardTe
       q <- ConvertQ10(standardTemp, ChooseQ10(rawRow, conversions), q, as.numeric(rawRow$temperature))
   }
   
-  return(buildMetabolicRateRow(q, colName, unitsColName, rawRow, addOriginalCols))
+  return(buildMetabolicRateRow(q, colName, unitsColName, rawRow, addMetaCols))
 }
 
