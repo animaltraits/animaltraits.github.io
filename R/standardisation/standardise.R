@@ -5,8 +5,8 @@
 
 # Functions to standardise trait observations
 
-suppressMessages(library(udunits2, quietly = TRUE))
-suppressMessages(library(units, quietly = TRUE))
+library(udunits2)
+library(units)
 library(tibble)
 library(readr)
 

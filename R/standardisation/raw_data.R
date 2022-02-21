@@ -4,7 +4,7 @@
 # You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 # Some functions for dealing with raw data
-suppressMessages(library(data.table))
+library(data.table)
 
 
 NUMBER_REGEX <- "[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?"
