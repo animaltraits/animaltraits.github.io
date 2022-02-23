@@ -8,6 +8,7 @@ Steps to create a new release
 7. Download the release ZIP file
 8. Upload the ZIP file, observations.csv, column-documentation.csv and observations.xlsx to the Zenodo revision.
 9. Save and publish the Zenodo revision.
+10. Update the DOI badge in the main README.md. Clicking on the badge in the Zenodo page pops up a dialog with source code for the badge.
 
 
 
