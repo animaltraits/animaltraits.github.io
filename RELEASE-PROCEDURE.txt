@@ -7,6 +7,7 @@ Steps to create a new release
 6. Create a release on GitHub
 7. Download the release ZIP file
 8. Upload the ZIP file, observations.csv, column-documentation.csv and observations.xlsx to the Zenodo revision.
+9. Save and publish the Zenodo revision.
 
 
 
