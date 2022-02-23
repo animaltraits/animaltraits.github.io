@@ -3,7 +3,7 @@ Steps to create a new release
 1. On Zenodo, locate the animal traits archive (https://doi.org/10.5281/zenodo.5565641) and click on "New version".
 3. Save the new revision to reserve a DOI
 4. Update URLs in docs/_config.yml. In each URL, edit ID in "record/<ID>/files" to be the last component in the new Zenodo DOI, i.e. if the Zenodo DOI is "10.5281/zenodo.6233982", the record ID is 6233982.
-5. Commit and push all changes to GitHub
+5. Save, commit and push all changes to GitHub
 6. Create a release on GitHub
 7. Download the release ZIP file
 8. Upload the ZIP file, observations.csv, column-documentation.csv and observations.xlsx to the Zenodo revision.
