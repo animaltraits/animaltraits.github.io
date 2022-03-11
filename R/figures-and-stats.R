@@ -189,9 +189,9 @@ transparentColour <- function(colour, alpha) {
   .plotObservations(obs, "body mass", "metabolic rate", xTicks = seq(-8, 2, 2), yTicks = seq(-7, 3, 2),
                     ylim = c(10e-9, 10e2))
   
-  .mulabel(20, .06, 4, 1.6, "ant eaters")
-  arrows(20, .06, 13, 3, length = arrowLength)
-  arrows(20, .06, 30, 8, length = arrowLength)
+  #.mulabel(20, .06, 4, 1.6, "ant eaters") Actually myrmecophages
+  # arrows(20, .06, 13, 3, length = arrowLength)
+  # arrows(20, .06, 30, 8, length = arrowLength)
   .label(.0003, .5, .0015, .5, "hummingbirds")
   .label(.008, 5, .04, 3.6, "woodpeckers")
   .label(.2, 50, 1.6, 20, "petrels, penguins & shags")
