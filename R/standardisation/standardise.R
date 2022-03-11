@@ -41,14 +41,17 @@ source("standardisation/raw_data.R")
 # Calls a function once for each unique observation ID in the data
 # @return A data frame with a row for each unique observationID and columns returned by calling \code{fun}.
 iterateObservations <- function(data, fun, ...) {
-  do.call(rbind, lapply(unique(data$observationID), function(obsId) {
+  # Convert each observation and build a list...
+  l <- lapply(unique(data$observationID), function(obsId) {
     rows <- data[data$observationID == obsId, ]
     tryCatch(
       fun(rows, ...),
       # Stop on an error because we require a result for every observation
       error = function(e) StopOnLines(rows, e)
     )
-  }))
+  })
+  # Convert to a data frame
+  do.call(rbind, l)
 }
 
 extractAndStandardiseTraitsFromDirOrFile <- function(dirOrFile, traitsList, checkTaxa = TRUE, ignoreFiles = character(0)) {

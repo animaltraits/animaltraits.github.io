@@ -58,9 +58,10 @@ convertNumberOrRange <- function(v) {
   if (range)
     # Convert range to (middle, min, max)
     extractRangeValues(v)
-  else
+  else {
     # Convert number. Minimum and maximum are unknown
-    c(type.convert(v), NA, NA)
+    c(type.convert(v, as.is = TRUE), NA, NA)
+  }
 }
 
 # Removes a byte-order mark from the first column name
