@@ -18,6 +18,7 @@ opened by using `read.csv(..., encoding = "UTF-8")`. See this post for
 reading UTF-8 in Python: [Reading a UTF8 CSV file with
 Python](https://stackoverflow.com/questions/904041/reading-a-utf8-csv-file-with-python). Raw files can be written from R using `write.csv(..., row.names = FALSE, fileEncoding = "UTF-8", na = "")`.
 
+The Emacs editor should work, but if you open a file and it has used the wrong encoding, run the command `revert-buffer-with-coding-system` and specify `utf-8`. Alternatively, set the coding for the next file with `C-x RET c utf-8 RET` then open the file using `C-x C-f <path> RET`.
 
 ## Sub-folders
 
