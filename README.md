@@ -2,8 +2,7 @@
 
 ### AnimalTraits: a curated animal trait database for body mass, metabolic rate and brain size
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6354650.svg)](https://doi.org/10.5281/zenodo.6354650)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6468938.svg)](https://doi.org/10.5281/zenodo.6468938)
 
 
 
