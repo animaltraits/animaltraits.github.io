@@ -25,7 +25,7 @@ The Emacs editor should work, but if you open a file and it has used the wrong e
 | Folder | Description |
 | ------ | ----------- |
 | [`raw`](raw) | Contains raw data in UTF-8 encoded CSV files. Sub-folders are used to organise files, but do not affect processing in any way. |
-| [`Endnote-dbs`](Endnote-dbs) | Contains an Endnote database that contains references for all of the raw data sources. |
+| [`Endnote-dbs`](Endnote-dbs) | Contains an Endnote database that contains references for all of the raw data sources. Also contains a list of journal terms used by EndNote to abbreviate the journal names. |
 
 ## Files
 
