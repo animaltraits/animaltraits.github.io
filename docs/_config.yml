@@ -2,9 +2,9 @@ theme: jekyll-theme-tactile
 title: AnimalTraits
 description: A curated and open database of terrestrial animal traits
 url: "https://animaltraits.org"
-csv_url: "https://zenodo.org/record/6354650/files/observations.csv?download=1"
-xlsx_url: "https://zenodo.org/record/6354650/files/observations.xlsx?download=1"
-docs_url: "https://zenodo.org/record/6354650/files/column-documentation.csv?download=1"
+csv_url: "https://zenodo.org/record/6468938/files/observations.csv?download=1"
+xlsx_url: "https://zenodo.org/record/6468938/files/observations.xlsx?download=1"
+docs_url: "https://zenodo.org/record/6468938/files/column-documentation.csv?download=1"
 
 github:
   is_user_page: false
